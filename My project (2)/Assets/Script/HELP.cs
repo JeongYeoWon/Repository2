@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class HELP : MonoBehaviour
 {
-    private GameManager gameManager;
-    private void Start()
-    {
-        gameManager = FindObjectOfType<GameManager>();
-    }
     // 충돌 감지 시 호출되는 함수
     public void OnTriggerEnter(Collider other)
     {
