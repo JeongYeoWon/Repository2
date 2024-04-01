@@ -10,12 +10,14 @@ public class GameManager : MonoBehaviour
     public GameObject bulletPrefab; // 총알 프리팹 설정
     public Transform spawnPoint; // 스팟 포인트~
     public Transform target; // 빨간박스랑 충돌 감지할 변수
-    private LinkedList.Node<GameObject>.Queue<GameObject> bulletQueue
-            = new LinkedList.Node<GameObject>.Queue<GameObject>(); // 총알을 저장할 큐
+    /*private LinkedList.Node<GameObject>.Queue<GameObject> bulletQueue
+            = new LinkedList.Node<GameObject>.Queue<GameObject>(); // 총알을 저장할 큐*/
+    LinkedList<GameObject> bulletStack;
     // Start is called before the first frame update
     void Awake()
     {
         if (Instance == null) Instance = this;
+        bulletStack = new LinkedList<GameObject>();
         Initialize(10);
     }
 
@@ -34,25 +36,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private GameObject CreateNewObject() // 총알 생성
+    static private GameObject CreateNewObject() // 총알 생성
     {
         // 총알을 생성하고 큐에 추가
-        var newBullet = Instantiate(bulletPrefab, spawnPoint.position, Quaternion.identity);
+        var newBullet = Instantiate(Instance.bulletPrefab, Instance.spawnPoint.position, Quaternion.identity);
         newBullet.gameObject.SetActive(false);
         return newBullet;
     }
 
     private void Initialize(int count)
     {
-        for(int i = 0; i < count; i++)
+        for (int i = 0; i < count; i++)
         {
-            bulletQueue.Enqueue(CreateNewObject());
+            bulletStack.Push(CreateNewObject()); // 스택에 생성된 총알 추가
         }
     }
 
     public static GameObject GetBullet()
     {
-        if (Instance.bulletQueue.Count() > 0) //현재 큐에 남아있는 오브젝트가 있다면,
+        /*if (Instance.bulletQueue.Count() > 0) //현재 큐에 남아있는 오브젝트가 있다면,
         {
             var objectInPool = Instance.bulletQueue.Dequeue();
 
@@ -68,12 +70,26 @@ public class GameManager : MonoBehaviour
             objectInPool.SetActive(true);
             objectInPool.transform.SetParent(null);
             return objectInPool;
+        }*/
+
+        // 스택에서 총알 가져오기
+        GameObject bullet = Instance.bulletStack.Pop();
+        if (bullet != null)
+        {
+            bullet.SetActive(true); // 총알 활성화
+            bullet.transform.SetParent(null); // 부모 설정
         }
+        else
+        {
+            bullet = CreateNewObject(); // 새로운 총알 생성
+        }
+        return bullet;
     }
     public static void ReturnObject(GameObject bullet)
     {
         bullet.gameObject.SetActive(false);
         bullet.transform.SetParent(Instance.transform);
-        Instance.bulletQueue.Enqueue(bullet);
+        /*Instance.bulletQueue.Enqueue(bullet);*/
+        Instance.bulletStack.Push(bullet);
     }
 }
