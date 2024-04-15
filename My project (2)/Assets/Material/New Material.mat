@@ -71,6 +71,8 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _Outline: 0.05
+    - _OutlineWidth: 0.05
     - _Parallax: 0.02
     - _Shininess: 32
     - _SmoothnessTextureChannel: 0
@@ -79,10 +81,15 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - _AmbientColor: {r: 1, g: 1, b: 1, a: 1}
+    - _AmbientColor: {r: 1, g: 0.4764151, b: 0.86505544, a: 1}
     - _Color: {r: 1, g: 1, b: 0, a: 1}
-    - _DiffuseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _DiffuseColor: {r: 0, g: 0.41724777, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _LightDirection: {r: 1, g: -1, b: -1, a: 0}
-    - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
+    - _HighlightColor: {r: 0.9622642, g: 0.086240634, b: 0.086240634, a: 1}
+    - _LightDirection: {r: 1, g: 1, b: -1, a: 0}
+    - _MidColor: {r: 0.57222605, g: 0.18823528, b: 0.8509804, a: 1}
+    - _OutlineColor: {r: 0.39044145, g: 0.48741138, b: 0.7735849, a: 1}
+    - _ShColor: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadeColor: {r: 1, g: 0.8349056, b: 0.8349056, a: 1}
+    - _SpecularColor: {r: 0.48125675, g: 0, b: 0.5660378, a: 1}
   m_BuildTextureStacks: []
